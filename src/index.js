@@ -1,17 +1,74 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { RecoilRoot, atom } from 'recoil';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import IndexPage from './pages/IndexPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+import KakaoCallBackPage from './pages/KakaoCallBackPage';
+import HomePage from './pages/HomePage';
+import DeactivatePage from './pages/settings/DeactivatePage';
+import ModifyPasswordPage from './pages/settings/ModifyPasswordPage';
+import DeactivatedPage from './pages/settings/DeactivatedPage';
+import ProfilePage from './pages/settings/ProfilePage';
+
+export const jwtState = atom (
+  {
+    key : "jwt",
+    default : null
+  }
+);
+
+export const userEmailState = atom (
+  {
+    key : "userEmailState",
+    default : null
+  }
+);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <IndexPage />
+  },
+  {
+    path: "/flow/login",
+    element: <LoginPage />
+  },
+  {
+    path: "/flow/signup",
+    element: <SignUpPage />
+  },
+  {
+    path: "/flow/kakao/callback",
+    element: <KakaoCallBackPage />
+  },
+  {
+    path: "/home",
+    element: <HomePage />
+  },
+  {
+    path: "/settings/deactivate",
+    element: <DeactivatePage />
+  },
+  {
+    path: "/settings/modify",
+    element: <ModifyPasswordPage />
+  },
+  { 
+    path: "/settings/deactivated",
+    element: <DeactivatedPage /> 
+  },
+  {
+    path: "/settings/profile",
+    element: <ProfilePage /> 
+  }
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <RecoilRoot>
+    <RouterProvider router={router} />
+  </RecoilRoot>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
